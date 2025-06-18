@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | Alumni Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="photos/SVERI_logo.png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .hero {
+      background-image: url('photos/sverimages2.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
+    }
+    .banner {
+      background-color: #a10d2f;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .card-icon {
+      font-size: 40px;
+      color: #a10d2f;
+    }
+    .card-btn {
+      background-color: #a10d2f;
+      border: none;
+    }
+    .card-btn:hover {
+      background-color: #87091f;
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button[type="submit"] {
+      background-color: #a10d2f;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+    }
+    button[type="submit"]:hover {
+      background-color: #87091f;
+    }
+    #signbtn {
+      position: absolute;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-size: 17px;
+      font-weight: 560;
+      background: #a10d2f;
+      color: #fff;
+      text-decoration: none;
+      margin-top: 5px;
+      top: 20px;
+      right: 100px;
+      box-shadow: 0 0 0 0 transparent;
+      transition: all 0.2s ease-in-out;
+    }
+    #signbtn:hover {
+      background: rgb(237, 238, 240);
+      color:#a10d2f;
+      box-shadow: 0 0 30px 5px rgb(70, 74, 141);
+    }
+    #editProfileIcon {
+      width: 50px;
+      height: 50px;
+      background-color: #a10d2f;
+      border-radius: 60%;
+      color:#fff;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      justify-content: center;
+      position: absolute;
+      top: 24px;
+      right: 20px; 
+    }
+    #editProfileIcon:hover {
+      background: rgb(237, 238, 240);
+      color:#a10d2f;
+      box-shadow: 0 0 30px 5px rgb(70, 74, 141);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Welcome, <span id="studentName">Student</span> 👋</h1>
+    <p>Explore mentorship, events, and job opportunities</p>
+    <i class="fas fa-user-edit" id="editProfileIcon" style="font-size: 25px;" title="Edit Profile"></i>
+    <a href="LoginForm.html" id="signbtn">LogOut</a>
+  </div>
+
+  <div class="banner">
+    Learn from those who walked the path before you.
+  </div>
+
+  <!-- Card Section -->
+  <div class="container py-5">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="card " style="min-height: 300px;">
+          <div class="card-body text-center">
+            <div class="card-icon mb-3"><i class="fas fa-calendar-check"></i></div>
+            <h5 class="card-title">Attend an Event</h5>
+            <p class="card-text">Join and engage in upcoming student events and workshops.</p>
+            <button class="btn btn-primary card-btn" onclick="loadEvents()">Find Events</button>
+            <div id="eventsSection" style="display: none; max-height: 250px; overflow-y: auto;" class="mt-3">
+              <h4>Upcoming Events</h4>
+               <div id="eventsList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+            <div class="card " style="min-height: 300px;">
+          <div class="card-body text-center">
+            <div class="card-icon mb-3"><i class="fas fa-user-tie"></i></div>
+            <h5 class="card-title">Find a Mentor</h5>
+            <p class="card-text">Connect with alumni mentors for guidance and support.</p>
+            <button class="btn btn-primary card-btn" onclick="fetchAlumni()">Find Mentors</button>
+            <div id="mentorSection" style="display: none;" class="mt-3">
+              <div id="mentorList">Loading alumni...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="min-height: 300px;">
+          <div class="card-body">
+            <div class="card-icon mb-3">💼</div>
+            <h5 class="card-title">Explore Opportunities</h5>
+            <p class="card-text">Search for jobs and internships posted by alumni.</p>
+            <button class="btn btn-primary card-btn" onclick="fetchJobs()">View Jobs</button>
+            <div id="jobsSection" style="display: none; max-height: 250px; overflow-y: auto;" class="mt-3">
+              <div id="jobsList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="updateProfileForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Edit Your Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label>Name:</label>
+            <input type="text" id="editName" class="form-control" required>
+            <label>Email:</label>
+            <input type="email" id="editEmail" class="form-control" required>
+            <label>Semester:</label>
+            <input type="text" id="editOccupation" class="form-control">
+            <label>Roll No.:</label>
+            <input type="text" id="editCompany" class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Name Display Script (if needed) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc,  getDocs, collection } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
+     // TODO: Replace with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      const uid = user.uid;
+      const docRef = doc(db, "students", uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        document.getElementById("studentName").textContent = docSnap.data().name;
+      }
+    });
+
+    document.getElementById("editProfileIcon").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) return alert("User not logged in");
+
+      const docRef = doc(db, "students", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById("editName").value = data.name || "";
+        document.getElementById("editEmail").value = data.email || "";
+        document.getElementById("editOccupation").value = data.semester || "";
+        document.getElementById("editCompany").value = data.rollNumber || "";
+
+        const modal = new bootstrap.Modal(document.getElementById("editProfileModal"));
+        modal.show();
+      } else {
+        alert("Profile not found.");
+      }
+    });
+
+    document.getElementById("updateProfileForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return alert("User not logged in");
+
+      const updateBtn = document.querySelector('#updateProfileForm button[type="submit"]');
+      updateBtn.textContent = "Updating...";
+      updateBtn.disabled = true;
+
+      try {
+        await setDoc(doc(db, "students", user.uid), {
+          name: document.getElementById("editName").value,
+          email: document.getElementById("editEmail").value,
+          semester: document.getElementById("editOccupation").value,
+          rollNumber: document.getElementById("editCompany").value
+        }, { merge: true });
+
+        alert("Profile updated successfully!");
+        document.getElementById("studentName").textContent = document.getElementById("editName").value;
+        bootstrap.Modal.getInstance(document.getElementById("editProfileModal")).hide();
+      } catch (error) {
+        console.error("Error updating profile:", error);
+        alert("Failed to update profile.");
+      } finally {
+        updateBtn.textContent = "Update Profile";
+        updateBtn.disabled = false;
+      }
+    });
+
+      // ✅ Expose function to global scope
+      let mentorsLoaded = false;
+      let eventsLoaded = false;
+      let jobsLoaded= false;
+
+window.fetchAlumni = async function () {
+  const section = document.getElementById("mentorSection");
+  const mentorList = document.getElementById("mentorList");
+
+  // Toggle display
+  if (section.style.display === "none") {
+    section.style.display = "block";
+  } else {
+    section.style.display = "none";
+    return;
+  }
+
+  // Only fetch data once
+  if (!mentorsLoaded) {
+    mentorList.innerHTML = "Loading alumni...";
+    try {
+      const snapshot = await getDocs(collection(db, "alumni"));
+      mentorList.innerHTML = "";
+
+      if (snapshot.empty) {
+        mentorList.innerHTML = "<p>No mentors found.</p>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const card = `
+          <div class="card mb-2">
+            <div class="card-body">
+              <h5 class="card-title">${data.name || "Unnamed"}</h5>
+              <p class="card-text"><strong>Email:</strong> ${data.email || "N/A"}</p>
+              <p class="card-text"><strong>Occupation:</strong> ${data.occupation || "N/A"}</p>
+            </div>
+          </div>
+        `;
+        mentorList.innerHTML += card;
+      });
+
+      mentorsLoaded = true;
+    } catch (error) {
+      console.error("Error fetching alumni:", error);
+      mentorList.innerHTML = "<p>Error loading mentors. Try again later.</p>";
+    }
+  }
+};
+
+
+
+window.loadEvents = async function () {
+  const section = document.getElementById("eventsSection");
+  const eventsList = document.getElementById("eventsList");
+
+  section.style.display = (section.style.display === "none") ? "block" : "none";
+
+  if (!eventsLoaded && section.style.display === "block") {
+    eventsList.innerHTML = "Loading events...";
+    try {
+      const snapshot = await getDocs(collection(db, "events"));
+      eventsList.innerHTML = "";
+
+      if (snapshot.empty) {
+        eventsList.innerHTML = "<p>No events found.</p>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const card = `
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">${data.title}</h5>
+              <p class="card-text"><strong>Date</strong> ${data.date}</p>
+              <p class="card-text"><strong>Time:</strong> ${data.time}</p>
+              <p class="card-text"><strong>Speaker:</strong> ${data.speaker}</p>
+              <p class="card-text">${data.description}</p>
+              <a href="${data.registrationLink}" target="_blank" class="btn btn-primary btn-sm">Join Events</a>            
+            </div>
+          </div>
+        `;
+        eventsList.innerHTML += card;
+      });
+
+      eventsLoaded = true;
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      eventsList.innerHTML = "<p>Error loading events. Try again later.</p>";
+    }
+  }
+};
+
+window.fetchJobs = async function () {
+  const section = document.getElementById("jobsSection");
+  const jobsList = document.getElementById("jobsList");
+
+  section.style.display = (section.style.display === "none") ? "block" : "none";
+
+  if (!jobsLoaded && section.style.display === "block") {
+    jobsList.innerHTML = "Loading jobs...";
+    try {
+      const snapshot = await getDocs(collection(db, "jobInternships"));
+      jobsList.innerHTML = "";
+
+      if (snapshot.empty) {
+        jobsList.innerHTML = "<p>No job postings found.</p>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const card = `
+          <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">${data.title}</h5>
+            <p><strong>Company:</strong> ${data.company}</p>
+            <p><strong>Location:</strong> ${data.location}</p>
+            <p><strong>Type:</strong> ${data.type}</p>
+            <p><strong>Deadline:</strong> ${data.deadline}</p>
+            <p>${data.description}</p>
+            <a href="${data.link}" target="_blank" class="btn btn-primary btn-sm">Apply Now</a>
+          </div>
+        </div>
+        `;
+        jobsList.innerHTML += card;
+      });
+
+      jobsLoaded = true;
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      jobsList.innerHTML = "<p>Error loading jobs. Try again later.</p>";
+    }
+  }
+};
+
+
+// document.getElementById("editProfileIcon").addEventListener("click", async () => {
+//   const user = auth.currentUser;
+//   if (!user) return alert("User not logged in");
+
+//   const docRef = doc(db, "students", user.uid);
+//   const docSnap = await getDoc(docRef);
+//   if (docSnap.exists()) {
+//     const data = docSnap.data();
+//     document.getElementById("editName").value = data.name || "";
+//     document.getElementById("editEmail").value = data.email || "";
+//     document.getElementById("editOccupation").value = data.semester || "";
+//     document.getElementById("editCompany").value = data.rollNumber || "";
+    
+//     const modal = new bootstrap.Modal(document.getElementById("editProfileModal"));
+//     modal.show();
+//   } else {
+//     alert("Profile not found.");
+//   }
+// });
+
+//     // Update profile in Firestore
+//     document.getElementById("updateProfileForm").addEventListener("submit", async (e) => {
+//       e.preventDefault();
+//       const user = auth.currentUser;
+//       if (!user) return alert("User not logged in");
+
+//       const updateBtn = document.querySelector('#updateProfileForm button[type="submit"]');
+//       updateBtn.textContent = "Updating...";
+//       updateBtn.disabled = true;
+
+//       try {
+//         await setDoc(doc(db, "students", user.uid), {
+//           name: document.getElementById("editName").value,
+//           email: document.getElementById("editEmail").value,
+//           occupation: document.getElementById("editOccupation").value,
+//           company: document.getElementById("editCompany").value,
+//         }, { merge: true });
+
+//         alert("Profile updated successfully!");
+//         document.getElementById("studentName").textContent = document.getElementById("editName").value;
+//         bootstrap.Modal.getInstance(document.getElementById("editProfileModal")).hide();
+//       } catch (error) {
+//         console.error("Error updating profile:", error);
+//         alert("Failed to update profile.");
+//       } finally {
+//         updateBtn.textContent = "Update Profile";
+//         updateBtn.disabled = false;
+//       }
+//     });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

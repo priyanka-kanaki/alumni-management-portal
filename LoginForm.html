@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Alumni Portal</title>
+    <!----------------- Bootstrap css files --------------->
+    <link rel="stylesheet" href="css-files/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="photos/SVERI_logo.png">
+
+
+    <!----------------- Javascript SDK --------------------->
+<!-- Firebase SDK -->
+<!-- <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"></script> -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,getDoc,
+    setDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+ 
+   // TODO: Replace with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+    
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.select = function () {
+    const userType = document.getElementById("user").value;
+    document.getElementById("studentFields").style.display =
+      userType === "Current Student" ? "block" : "none";
+    document.getElementById("alumniFields").style.display =
+      userType === "Alumni" ? "block" : "none";
+  };
+
+  window.register = async function () {
+    const userType = document.getElementById("user").value;
+    const name = document.getElementById("personalname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm").value;
+
+    if (!userType || !name || !email || !password || !confirmPassword) {
+      alert("Please fill all required fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      let userData = {
+        name,
+        email,
+        userType,
+        uid,
+        timestamp: serverTimestamp()
+      };
+
+      if (userType === "Alumni") {
+        userData.address = document.getElementById("address").value.trim();
+        userData.dob = document.getElementById("dob").value;
+        userData.degree = document.getElementById("degree").value;
+        userData.passingYear = document.getElementById("passingYear").value;
+        userData.occupation = document.getElementById("occupation").value.trim();
+        userData.company = document.getElementById("company").value.trim();
+      } else if (userType === "Current Student") {
+        userData.semester = document.getElementById("semester").value;
+        userData.rollNumber = document.getElementById("rollNumber").value.trim();
+      }
+
+      const collectionName = userType === "Alumni" ? "alumni" : "students";
+      await setDoc(doc(db, collectionName, uid), userData);
+
+      alert("Registration successful!");
+      window.location.href =
+        userType === "Alumni" ? "alumniDashboard.html" : "studentDashboard.html";
+
+    } catch (error) {
+      console.error(error);
+      alert("Registration error: " + error.message);
+    }
+  };
+
+  
+window.signInButton = async function () {
+  const email = document.getElementById("inputUsername").value.trim();
+  const password = document.getElementById("inputPassword").value;
+  const userType = document.querySelector(".login-form select").value;
+
+  if (!email || !password || !userType) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
+
+    const collection = userType === "Alumni" ? "alumni" : "students";
+    const docRef = doc(db, collection, uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // Optional: Verify user type matches
+      if (docSnap.data().userType !== userType) {
+        alert("Incorrect user type selected.");
+        return;
+      }
+
+      // Redirect
+      window.location.href = userType === "Alumni" ? "alumniDashboard.html" : "studentDashboard.html";
+    } else {
+      alert("No user data found in Firestore.");
+    }
+  } catch (error) {
+    alert("Login failed: " + error.message);
+  }
+};
+</script>
+
+<!-- <script src="javascript-file/config.js"></script> -->
+
+
+
+
+    <link rel="stylesheet" href="LoginForm.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- c:\Users\Asus\Downloads\Sanjana.jpeg -->
+        <div class="container col-lg-4 col-md-5 col-sm-5 col-xs-10">
+          
+          <div class="signup">Sign Up</div>
+          <div class="login">Log In</div>
+          
+          <form id="registerForm">
+           <div class="signup-form" id="signup-form">
+              <label for="user" style="font-size: small; margin-bottom:4px">Select User Type:</label>
+              <select class="input" id="user" onchange="select()">
+                <option value="">-- Select --</option>
+                <option value="Current Student">Current Student</option>
+                <option value="Alumni">Alumni</option>
+              </select><br>
+            
+              <label style="font-size: small; margin-bottom:4px">Full Name</label>
+              <input type="text" placeholder="Enter Name" class="input" id="personalname"><br>
+            
+              <label style="font-size: small; margin-bottom:4px">Email</label>
+              <input type="text" placeholder="Enter Email Address" class="input" id="email"><br>
+            
+              <label style="font-size: small; margin-bottom:4px">Password (Max 8 characters)</label>
+              <input type="password" placeholder="Choose a Password" class="input" id="password"><br>
+            
+              <label style="font-size: small; margin-bottom:4px">Confirm Password</label>
+              <input type="password" placeholder="Re-enter Password" class="input" id="confirm"><br>
+            
+              <div id="studentFields" style="display: none;">
+                <label style="font-size: small; margin-bottom:4px">Current Semester</label>
+                <input type="number" class="input" id="semester"><br>
+            
+                <label style="font-size: small; margin-bottom:4px">Roll Number</label>
+                <input type="text" class="input" id="rollNumber"><br>
+              </div>
+            
+              <div id="alumniFields" style="display: none;">
+                <label style="font-size: small; margin-bottom:4px">Address</label>
+                <input type="text" class="input" id="address" placeholder="Address"><br>
+            
+                <label style="font-size: small; margin-bottom:4px">Date Of Birth</label>
+                <input type="date" class="input" id="dob"><br>
+            
+                <label style="font-size: small; margin-bottom:4px">Last Degree</label>
+                <select class="input" id="degree">
+                  <option>B.E</option>
+                  <option>B.Tech</option>
+                </select><br>
+            
+                <label style="font-size: small; margin-bottom:4px">Passing Year</label>
+                <input type="number" class="input" id="passingYear"><br>
+            
+                <label style="font-size: small; margin-bottom:4px">Occupation</label>
+                <input type="text" class="input" id="occupation"><br>
+
+                <label style="font-size: small; margin-bottom:4px">Company</label>
+                <input type="text" class="input" id="company"><br>
+              </div>
+            
+              <div class="btn" onclick="register()">Create account</div>
+              <a href="#" class="loginn" style="color:#d83135;margin-left:10px; font-size:15px">Already a User?</a>
+              </div>
+
+        </form>
+          
+        <form id="loginForm">
+          <div class="login-form">
+            <label for="type">Login as</label>
+            <select name="type" class="input">
+                <option>Alumni</option>
+                <option>Current Student</option>
+            </select><br>
+
+              <input type="text" placeholder="Email or Username" class="input" id="inputUsername"><br>
+              <input type="password" placeholder="Password" class="input" id="inputPassword"><br>
+              <span><a href="forgotPassword.html" style="color:#d83135;">forgot password ?</a></span>
+              <div class="btn" onclick="signInButton()">log in</div>
+              <a href="#" class="signupp" style="color:#d83135;margin-left:10px; font-size: 15px;">New User? Create Account</a>
+           </div>
+        </div>
+      </div>
+    </form>
+      <script>
+        $(".login-form").hide();
+$(".login").css("background", "#fff");
+$(".login").css("color", "#d83135");
+$(".signup").css("background", "#d83135");
+$(".signup").css("color", "#fff");
+
+$(".login").click(function(){
+    $(".signup-form").hide();
+    $(".login-form").show();
+    $(".signup").css("background", "#fff").css("color", "#d83135");
+    $(".login").css("background", "#d83135").css("color", "#fff");
+    // $(".loginn").css("background", "#fff").css("color", "#d83135");
+});
+
+$(".signup").click(function(){
+    $(".signup-form").show();
+    $(".login-form").hide();
+    $(".login").css("background", "#fff").css("color", "#d83135");
+    $(".signup").css("background", "#d83135").css("color", "#fff");
+    // $(".signupp").css("background", "#fff").css("color", "#d83135");
+
+});
+
+// Handling "Already a User?" link click
+$(".loginn").click(function(e){
+    e.preventDefault();  // Prevent anchor default action
+    $(".signup-form").hide();
+    $(".login-form").show();
+    $(".signup").css("background", "#fff").css("color", "#d83135");
+    $(".login").css("background", "#d83135").css("color", "#fff");
+});
+
+// Handling "Already a User?" link click
+$(".signupp").click(function(e){
+    e.preventDefault();  // Prevent anchor default action
+    $(".signup-form").show();
+    $(".login-form").hide();
+    $(".signup").css("background", "#d83135").css("color", "#fff");
+    $(".login").css("background", "#fff").css("color", "#d83135");
+});
+
+$(".btn").click(function(){
+    $(".input").val("");
+});
+
+    </script>
+
+    <script>
+ function select(){
+        user = document.getElementById("user").value
+        console.log(user)
+      }
+  
+  </script>
+
+
+    <script src="javascript-file/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="javascript-file/bootstrap.js"></script>
+    <!-- <script src="javascript-file/config.js"></script> -->
+</body>
+</html>

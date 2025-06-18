@@ -1,0 +1,79 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #18294f !important;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.logout_btn {
+  color: white;
+  background: #dc3545;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.logout_btn:hover {
+  background: #c82333;
+  text-decoration: none;
+}
+
+.jumbotron {
+  border-radius: 12px;
+  background: linear-gradient(to right, #36d1dc, #5b86e5);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  transition: 0.3s ease;
+}
+
+.btn-sm:hover {
+  opacity: 0.85;
+}
+
+#mentorList .card,
+#jobList .card,
+#eventContainer .card {
+  background: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+h4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
