@@ -1,5 +1,4 @@
-<h1>Alumni Management System Project - Website</h1>
-# 🎓 Alumni Management Portal
+# 🎓 Alumni Management System Project - Website
 
 A web-based platform to connect alumni and current students, enabling mentorship, event sharing, job/internship opportunities, and networking.
 
@@ -18,17 +17,16 @@ A web-based platform to connect alumni and current students, enabling mentorship
 
 ## 🖼️ Screenshots
 
-
 ### 🏠 Home Page  
 ![Home Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/Home%20Page.png)
 
-## ℹ️ About Us
+### ℹ️ About Us  
 ![About us Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/About%20us.png)
 
-## 🔑 Forgot Password
+### 🔑 Forgot Password  
 ![Forgot Password Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/forgetpassword.png)
 
-## 📝 Registration / Login 
+### 📝 Registration / Login  
 ![Registration Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/registrationLogin.png)
 
 ### 🧑‍🎓 Student Dashboard  
@@ -38,7 +36,6 @@ A web-based platform to connect alumni and current students, enabling mentorship
 ![Alumni Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/alumni%20Dashboard.png)
 
 ---
-
 
 ## 🔧 Firebase Setup Instructions
 
@@ -64,35 +61,34 @@ A web-based platform to connect alumni and current students, enabling mentorship
 - `students`, `alumni`, `mentorship_requests`, `jobs`, `events`
 
 ### 6️⃣ Replace the firebaseConfig in all HTML files:
-```plaintext
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
-};
----
 
-##  Folder Structure
+#### const firebaseConfig = {
+ #### apiKey: "YOUR_API_KEY",
+ #### authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+ #### projectId: "YOUR_PROJECT_ID",
+ #### storageBucket: "YOUR_PROJECT_ID.appspot.com",
+ #### messagingSenderId: "SENDER_ID",
+ #### appId: "APP_ID"
+#### };
 
-```plaintext
-alumni-management-portal/
-├── css-files/
-├── javascript-file/
-├── photos/
-├── index.html
-├── login.html
-├── studentDashboard.html
-├── alumniDashboard.html
-├── README.md
-└── .gitignore
+## 📁 Folder Structure
+
+## alumni-management-portal/
+### ├── css-files/
+### ├── javascript-file/
+### ├── photos/
+### ├── index.html
+### ├── login.html
+### ├── studentDashboard.html
+### ├── alumniDashboard.html
+### ├── README.md
+### └── .gitignore
 
 ## 🛠️ How to Clone and Run the Project
-
 ### 🔁 1. Clone the repository
-
-```bash
-git clone https://github.com/priyanka-kanaki/alumni-management-portal.git
-cd alumni-management-portal
+#### -git clone https://github.com/priyanka-kanaki/alumni-management-portal.git
+#### -cd alumni-management-portal
+### 🧑‍💻 2. Open in Browser or Editor
+#### -Open index.html in a browser
+#### or
+#### Use VS Code and run with Live Server
