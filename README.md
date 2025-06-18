@@ -64,7 +64,7 @@ A web-based platform to connect alumni and current students, enabling mentorship
 - `students`, `alumni`, `mentorship_requests`, `jobs`, `events`
 
 ### 6️⃣ Replace the firebaseConfig in all HTML files:
-
+```plaintext
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -77,6 +77,7 @@ const firebaseConfig = {
 
 ##  Folder Structure
 
+```plaintext
 alumni-management-portal/
 ├── css-files/
 ├── javascript-file/
