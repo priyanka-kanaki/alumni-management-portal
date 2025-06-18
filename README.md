@@ -4,7 +4,7 @@
 
 ---
 
-#### 📌 Features
+### 📌 Features
 
 - 👤 Role-based login and registration (Student & Alumni) using Firebase Auth
 - 🧑‍🎓 Personalized dashboards for Students and Alumni
@@ -15,7 +15,7 @@
 
 ---
 
-#### 🖼️ Screenshots
+### 🖼️ Screenshots
 
 ##### 🏠 Home Page  
 ![Home Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/Home%20Page.png)
@@ -37,7 +37,7 @@
 
 ---
 
-#### 🔧 Firebase Setup Instructions
+### 🔧 Firebase Setup Instructions
 
 ##### 1️⃣ Create a Firebase Project
 - Visit [Firebase Console](https://console.firebase.google.com/)
@@ -62,33 +62,35 @@
 
 ##### 6️⃣ Replace the firebaseConfig in all HTML files:
 
- const firebaseConfig = {
-   apiKey: "YOUR_API_KEY",
-   authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-   projectId: "YOUR_PROJECT_ID",
-   storageBucket: "YOUR_PROJECT_ID.appspot.com",
-   messagingSenderId: "SENDER_ID",
-   appId: "APP_ID"
- };
+ ###### const firebaseConfig = {
+  ###### apiKey: "YOUR_API_KEY",
+  ###### authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  ###### projectId: "YOUR_PROJECT_ID",
+  ###### storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  ###### messagingSenderId: "SENDER_ID",
+  ###### appId: "APP_ID"
+ ###### };
+--- 
 
-#### 📁 Folder Structure
+### 📁 Folder Structure
 
- alumni-management-portal/
- ├── css-files/
- ├── javascript-file/
- ├── photos/
- ├── index.html
- ├── login.html
- ├── studentDashboard.html
- ├── alumniDashboard.html
- ├── README.md
- └── .gitignore
+  ###### alumni-management-portal/
+  ###### ├── css-files/
+  ###### ├── javascript-file/
+  ###### ├── photos/
+  ###### ├── index.html
+  ###### ├── login.html
+  ###### ├── studentDashboard.html
+  ###### ├── alumniDashboard.html
+  ###### ├── README.md
+  ###### └── .gitignore
+---
 
-#### 🛠️ How to Clone and Run the Project
- 🔁 1. Clone the repository
-  -git clone https://github.com/priyanka-kanaki/alumni-management-portal.git
-  -cd alumni-management-portal
- 🧑‍💻 2. Open in Browser or Editor
- -Open index.html in a browser
-   or
-  Use VS Code and run with Live Server
+### 🛠️ How to Clone and Run the Project
+  ##### 🔁 1. Clone the repository
+   ###### -git clone https://github.com/priyanka-kanaki/alumni-management-portal.git
+   ###### -cd alumni-management-portal
+  ##### 🧑‍💻 2. Open in Browser or Editor
+  ###### -Open index.html in a browser
+  ######   or
+  ######  Use VS Code and run with Live Server
