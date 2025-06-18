@@ -19,14 +19,23 @@ A web-based platform to connect alumni and current students, enabling mentorship
 ## 🖼️ Screenshots
 
 
-### 🔐 Login Page  
-![Login Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/login.png)
+### 🏠 Home Page  
+![Home Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/Home%20Page.png)
+
+## ℹ️ About Us
+![About us Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/About%20us.png)
+
+## 🔑 Forgot Password
+![Forgot Password Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/forgetpassword.png)
+
+## 📝 Registration / Login 
+![Registration Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/registrationLogin.png)
 
 ### 🧑‍🎓 Student Dashboard  
-![Student Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/student-dashboard.png)
+![Student Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/students%20Dashboard.png)
 
 ### 🎓 Alumni Dashboard  
-![Alumni Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/alumni-dashboard.png)
+![Alumni Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/master/screenshots/alumni%20Dashboard.png)
 
 ---
 
