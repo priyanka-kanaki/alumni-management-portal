@@ -1,34 +1,88 @@
 <h1>Alumni Management System Project - Website</h1>
+# 🎓 Alumni Management Portal
 
-<b>Project Components :</b> 
-- A Login/Signup Page
-- Profile Page - Alumni and Student
-- Home Page
-- Dashboard
-- Recruiters Page
+A web-based platform to connect alumni and current students, enabling mentorship, event sharing, job/internship opportunities, and networking.
 
-In this website a person can create an account. After creating account the person will land on a Profile page where he/she has to fill his/her details which will be stored in MongoDB. After submiting the form the person will be directed to the Home Page containing information about the university. The Main page is linked to a Dashboard which contains information regarding the placements and highest packages offered, etc.
+---
 
-The website is a fully responsive site (Can be opened in Laptop/PC, Tablet, Andriod). Go and have a look, its really beautiful. 
+## 📌 Features
 
-<b>Languages and Frameworks used :</b>
-- HTML
-- CSS
-- Javascript
-- Bootstrap(Framework)
+- 👤 Role-based login and registration (Student & Alumni) using Firebase Auth
+- 🧑‍🎓 Personalized dashboards for Students and Alumni
+- 🔍 Explore mentors & job/internship opportunities
+- 📢 Post and manage alumni events
+- 📝 View and edit user profiles
+- ☁️ Firebase Firestore for data storage and real-time updates
 
-<b>AWS services used : </b>
-- AWS Cognito
-- S3 Bucket
-- Simple Email Service(SES)
-- Dynamo DB
-- API Gateway
-- AWS Lambda
+---
 
-## Links to website - <br>
-(Sorry, the AWS services has been expired) <br>
-LogIn Form/SignUp Form - https://gaganpreetkaurkalsi.github.io/AlumniManagementSystem-Project/LoginForm <br>
-StudentProfile - https://gaganpreetkaurkalsi.github.io/AlumniManagementSystem-Project/StudentProfile <br>
-AlumniProfile - https://gaganpreetkaurkalsi.github.io/AlumniManagementSystem-Project/Details <br>
-Main WebPage - https://gaganpreetkaurkalsi.github.io/AlumniManagementSystem-Project/ResponsiveLayout <br>
-Dashboard - https://gaganpreetkaurkalsi.github.io/AlumniManagementSystem-Project/Dashboard.html<br>
+## 🖼️ Screenshots
+
+
+### 🔐 Login Page  
+![Login Page](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/login.png)
+
+### 🧑‍🎓 Student Dashboard  
+![Student Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/student-dashboard.png)
+
+### 🎓 Alumni Dashboard  
+![Alumni Dashboard](https://github.com/priyanka-kanaki/alumni-management-portal/blob/main/screenshots/alumni-dashboard.png)
+
+---
+
+
+## 🔧 Firebase Setup Instructions
+
+### 1️⃣ Create a Firebase Project
+- Visit [Firebase Console](https://console.firebase.google.com/)
+- Click **"Add project"**, name it (e.g., `Alumni Portal`)
+- Complete setup (you can skip Google Analytics)
+
+### 2️⃣ Enable Authentication
+- Go to **Authentication** → **Sign-in method**
+- Enable **Email/Password**
+
+### 3️⃣ Add a Web App
+- Click the `</>` (Web) icon
+- Register your app and copy the `firebaseConfig` snippet
+- Paste this in your `.html` files where Firebase is initialized
+
+### 4️⃣ Set Up Firestore
+- Go to **Firestore Database** → Click **Create database**
+- Select **Start in test mode** → Choose location → Create
+
+### 5️⃣ (Optional) Create Collections
+- `students`, `alumni`, `mentorship_requests`, `jobs`, `events`
+
+### 6️⃣ Replace the firebaseConfig in all HTML files:
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+---
+
+##  Folder Structure
+
+alumni-management-portal/
+├── css-files/
+├── javascript-file/
+├── photos/
+├── index.html
+├── login.html
+├── studentDashboard.html
+├── alumniDashboard.html
+├── README.md
+└── .gitignore
+
+## 🛠️ How to Clone and Run the Project
+
+### 🔁 1. Clone the repository
+
+```bash
+git clone https://github.com/priyanka-kanaki/alumni-management-portal.git
+cd alumni-management-portal
